@@ -1,0 +1,18 @@
+<html lang="ko" xmlns:th="http://www.thymeleaf.org"
+      xmlns="http://www.w3.org/1999/xhtml">
+<td>
+    블로그 검색
+    <form th:action="@{/article/searchArticleTitle}" method="get" target="newWindow" onsubmit="searchArticleTitle()">
+        <label for="articleTitle">제목 검색: </label>
+        <input type="text" value="검색할 제목" name="articleTitle" id="articleTitle" >
+
+        <input type="submit" value="검색">
+    </form>
+    <script type="text/javascript">
+        var win;
+        function searchArticleTitle() {
+            win = open('', 'newWindow', "toolbar=yes,scrollbars=yes,resizable=yes,width=400,height=400");
+        }
+    </script>
+</td>
+</html>

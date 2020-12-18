@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org"
+      xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+    <title>Modify Member Info Page</title>
+    <script type="text/javascript" th:src="@{/resources/js/jquery-3.5.0.js}" charset="UTF-8"></script>
+    <script type="text/javascript" th:src="@{/resources/js/index.js}" charset="UTF-8"></script>
+    <script type="text/javascript" th:src="@{/resources/js/index/clock.js}" charset="UTF-8"></script>
+    <script type="text/javascript" th:src="@{/resources/js/index/calendar.js}" charset="UTF-8"></script>
+</head>
+<body>
+<form th:action="@{/member/modifyInfo}" th:object="${member}" th:method="post">
+    <table border="1">
+        <tr>
+            <th colspan="2">회원 정보 수정</th>
+        </tr>
+        <tr>
+            <th>이름</th>
+            <th>값</th>
+        </tr>
+        <tr>
+            <td>
+                비밀번호:
+            </td>
+            <td>
+                <input type="text" name="memberPW" id="memberPW" >
+            </td>
+        </tr>
+        <tr id="pwCheckArea">
+            <td colspan="2">
+                비밀번호 재확인:
+            </td>
+            <td>
+                <input type="text" name="memberPWCheck" id="memberPWCheck">
+                <button type="button" id="checkPWButton" onclick="checkPW()">비밀번호 확인</button>
+            </td>
+        </tr>
+        <tr>
+            <td>사용할 별명: </td>
+            <td>
+                <input type="text" id="memberNickname" name="memberNickname"/>
+            </td>
+        </tr>
+        <tr>
+            <td>생년월일(주민번호 앞 6자리): </td>
+            <td>
+                <input type="text" id="memberBirth" name="memberBirth"/>
+            </td>
+        </tr>
+        <tr>
+            <td>소개 글 : </td>
+            <td colspan="2">
+                <textarea name="memberIntroWord" id="memberIntroWord" cols="40" rows="5"></textarea>
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <div id="memberModifyAvailable">
+                    <button type="submit">
+                        회원정보 수정 버튼
+                    </button>
+                </div>
+                <div id="memberModifyDisAvailable">
+                    비밀번호를 다시 확인해주세요
+                </div>
+            </td>
+            <td>
+                <button type="button" onclick="location.href='/index'">
+                    회원정보 취소 버튼
+                </button>
+            </td>
+        </tr>
+    </table>
+</form>
+<script type="text/javascript">
+    var pwCheckArea = document.getElementById("pwCheckArea");
+    var pw = document.getElementById("memberPW");
+    var pwCheck = document.getElementById("memberPWCheck");
+    var modifyButton = document.getElementById("memberModifyAvailable");
+    var checkPlease = document.getElementById("memberModifyDisAvailable");
+    // var checkPWButton = document.getElementById("checkPWButton");
+
+    pwCheckArea.style.display = "none";
+    modifyButton.style.display = "block";
+    checkPlease.style.display = "none";
+
+    pw.addEventListener('change', function () {
+        pwCheckArea.style.display = "block";
+        modifyButton.style.display = "none";
+        checkPlease.style.display = "block";
+    });
+
+    function checkPW() {
+        if (pw.value !== '') {
+            if (pw.value === pwCheck.value) {
+                modifyButton.style.display = "block";
+                checkPlease.style.display = "none";
+            } else {
+                modifyButton.style.display = "none";
+                checkPlease.style.display = "block";
+            }
+        } else {
+            modifyButton.style.display = "block";
+            checkPlease.style.display = "none";
+        }
+    }
+
+
+</script>
+</body>
+</html>

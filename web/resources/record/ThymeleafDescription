@@ -1,0 +1,39 @@
+사용한 th 태그
+페이지
+th:replace="링크" > 다른 html에 작성된 view 내용을 가져옴
+th:href="@{링크}" > url 링크 > 해당 페이지로 이동
+
+자바스크립트
+<script type="text/javascript" th:inline="javascript">
+    inline으로 자바스크립트 작성
+    /*<![CDATA[*/
+    thymeleaf에서 적용 가능한 자바스크립트 함수
+    - 추가
+    // 자바스크립트에 원하는 thymeleaf 형식의 URL을 등록
+    var URL변수 = /*[[@{/원하는 URL}]]*/'';
+    /*]]>*/
+</script>
+js 포함 방법 예시. 아직 안쓰임
+<script type="text/javascript" th:src="@{/resources/js/index.js}" charset="UTF-8"></script>
+
+조건문
+th:if="${변수}" > 조건식을 넣음
+추가 - session을 활용 > 링크를 활용하여 이동을 해도 해당 내용이 들어갈 수 있도록 설정
+th:unless="${변수}" > if의 else문
+
+입력
+th:action="@{링크}"  > 컨트롤러로 설정한 링크를 활용하여 값을 넣음
+> @RequestMapping(value = "/memberLogin", method = RequestMethod.POST)
+th:object="${객체}" > 객체를 활용하기 위해 넣음
+th:method="post" > get 혹은 post
+
+반복문
++ 내용
+필요한 클래스 > Category.java
+상위 태그 > th:each="category : ${categories}"
+하위 태그 > th:text="${category.categoryId}"
+
+내용
+th:text="${변수}" > 변수에 보여주고 싶은 값을 넣음
+<p th:text="${#dates.format(#dates.createNow(), 'yyyy년 MMM dd일 HH시 mm분')}"></p>
+

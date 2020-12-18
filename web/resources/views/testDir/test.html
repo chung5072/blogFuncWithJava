@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org"
+      xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+    <title>Thymeleaf Test page</title>
+    <script type="text/javascript" th:src="@{/resources/js/index.js}" charset="UTF-8"></script>
+    <script type="text/javascript" th:src="@{/resources/js/jquery-3.5.0.js}" charset="UTF-8"></script>
+</head>
+<body>
+<!--블로그 만들기 프로젝트
+기반 > Spring MVC + Thymeleaf + Oracle Database-->
+Thymeleaf Test Page!
+<table border="1">
+    <tr>
+        <td>
+            hihi
+        </td>
+    </tr>
+</table>
+<div align="center">
+    <h1>Spring MVC - File Upload to Database Demo</h1>
+    <form method="post" th:action="@{/testDir/doUpload}" enctype="multipart/form-data">
+        <table border="1">
+            <tr>
+                <th colspan="2">
+                    Pick file:
+                </th>
+            </tr>
+            <tr>
+                <td>file name</td>
+                <td><input type="text" name="fileName" id="fileName" /></td>
+            </tr>
+            <tr>
+                <td>file contents</td>
+                <td><input type="file" name="fileUpload" id="fileUpload"/></td>
+            </tr>
+            <tr>
+                <td colspan="2" align="center">
+                    <input type="submit" value="upload">
+                </td>
+            </tr>
+        </table>
+    </form>
+</div>
+<script type="text/javascript" th:inline="javascript" charset="UTF-8">
+    var input = document.getElementById('fileUpload');
+    var infoArea = document.getElementById('fileName');
+
+    input.addEventListener('change', showFileName);
+
+    function showFileName() {
+        var filename = input.value;
+        var regexPattern = /h\\(.*?)$/;
+        var test = regexPattern.exec(filename)[1];
+        infoArea.value = test.toString();
+    }
+</script>
+<!--Thymeleaf 링크 > th:href="@{/url}"-->
+<a th:href="@{/index}">메인 페이지</a>
+</body>
+</html>

@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org"
+      xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+    <title>Search Member ID</title>
+</head>
+<body>
+<p th:text="${getMemberID}"></p>
+<a href="#" id="searchMemberPage">계정 검색</a>
+<script type="text/javascript" th:inline="javascript">
+    /*<![CDATA[*/
+    var memberSearchPageUrl = /*[[@{/member/memberSearchPage}]]*/'';
+
+    var goToMemberSearchWindow = document.getElementById('searchMemberPage');
+
+    goToMemberSearchWindow.onclick = function () {
+        opener.window.location = memberSearchPageUrl;
+
+        close();
+    }
+    /*]]>*/
+</script>
+</body>
+</html>

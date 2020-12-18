@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org"
+      xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+    <title>hello</title>
+</head>
+<body>
+<script type="text/javascript" th:inline="javascript" charset="UTF-8">
+    /*<![CDATA[*/
+    var result = /*[[ ${backgroundImage} ]]*/'';
+    /*]]*/
+    window.onload = function() {
+        var img = "url('data:image/*;base64, "+result+"')"
+        document.body.style.backgroundImage = img;
+    }
+</script>
+</body>
+</html>

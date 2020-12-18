@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org"
+      xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+    <title>Modify Article Page</title>
+    <script type="text/javascript" th:src="@{/resources/js/jquery-3.5.0.js}" charset="UTF-8"></script>
+    <script type="text/javascript" th:src="@{/resources/js/index.js}" charset="UTF-8"></script>
+    <script type="text/javascript" th:src="@{/resources/js/index/clock.js}" charset="UTF-8"></script>
+    <script type="text/javascript" th:src="@{/resources/js/index/calendar.js}" charset="UTF-8"></script>
+    <style>
+        body {
+            background-repeat: no-repeat;
+        }
+    </style>
+</head>
+<body>
+<form th:action="@{/article/modifyArticle}" th:method="post" enctype="multipart/form-data">
+    <table border="1">
+        <tr>
+            <td colspan="5" style="text-align: center">
+                <input type="text" name="articleTitle" id="articleTitle" th:value="${currentArticle.getArticleTitle()}" style="border: none"/>
+                <label for="articleTitle">의 내용 수정</label>
+            </td>
+        </tr>
+        <tr>
+            <td colspan="5" style="text-align: center">
+                <label for="articleTitle">제목:</label>
+                <input type="text" name="modifyArticleTitle" id="modifyArticleTitle"/>
+            </td>
+        </tr>
+        <tr>
+            <td colspan="4">글 내용</td>
+            <td rowspan="2">
+                <label>
+                    카테고리: <p th:text="${currentArticle.getArticleCategory()}"></p>
+                </label>
+            </td>
+        </tr>
+        <tr>
+            <td colspan="4">
+                <textarea th:text="${currentArticle.getArticleContents()}" name="modifyArticleContents" id="modifyArticleContents" cols="40" rows="5"></textarea>
+            </td>
+            <!--카테고리-->
+        </tr>
+        <tr>
+            <td colspan="1">
+                첨부파일
+            </td>
+            <td colspan="1">
+                <input type="text" name="modifyArticleFileName" id="modifyArticleFileName" />
+            </td>
+            <td colspan="2">
+                <input type="file" name="modifyArticleFileContents" id="modifyArticleFileContents"/>
+            </td>
+            <td>
+                <input type="submit" value="글 수정">
+            </td>
+        </tr>
+    </table>
+</form>
+<a href="#" id="cancelModifyArticle">메인 페이지로</a>
+<script type="text/javascript" th:inline="javascript">
+    /*<![CDATA[*/
+    var mainPageUrl = /*[[@{/index}]]*/'';
+    /*]]>*/
+    var goToMainPageWindow = document.getElementById('cancelModifyArticle');
+
+    goToMainPageWindow.onclick = function () {
+        opener.window.location = mainPageUrl;
+
+        close();
+    }
+
+    //3. 파일 이름
+    var input = document.getElementById('modifyArticleFileContents');
+    var infoArea = document.getElementById('modifyArticleFileName');
+
+    input.addEventListener('change', showFileName);
+
+    function showFileName() {
+        var filename = input.value;
+        var regexPattern = /h\\(.*?)$/;
+        var test = regexPattern.exec(filename)[1];
+        infoArea.value = test.toString();
+    }
+</script>
+</body>
+</html>

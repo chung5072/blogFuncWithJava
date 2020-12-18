@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org"
+      xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+    <title>Article Titles Page</title>
+</head>
+<body>
+<form th:action="@{/article/searchArticleTitle}" method="get">
+    <label for="articleTitle">제목 검색: </label>
+    <input type="text" value="검색할 제목" name="articleTitle" id="articleTitle" >
+
+    <input type="submit" value="검색">
+</form>
+<p>받은 제목: <span th:text="${articleTitle}"></span></p>
+<hr>
+<div th:each="articleTitle : ${articleSearchResult}" >
+    <a th:text="${articleTitle.getArticleTitle()}" href="#"
+       th:onclick="'opener.window.location = \'' + @{/article/showArticleCategory(
+           articleCategory_json=${articleTitle.getArticleCategory()},
+           articleTitle_json=${articleTitle.getArticleTitle()}
+           )} + '\''" id="resultPage"></a>
+</div>
+<a href="#" id="mainPage">검색 창 닫기</a>
+<script type="text/javascript" th:inline="javascript">
+    /*<![CDATA[*/
+    var goToMainPage = document.getElementById('mainPage');
+    var goToResultPage = document.getElementById('resultPage');
+
+    goToMainPage.onclick = function () {
+        close();
+    }
+    /*]]>*/
+</script>
+</body>
+</html>

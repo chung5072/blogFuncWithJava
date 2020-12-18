@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org"
+      xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+    <title>Blog Background Setting Page</title>
+    <script type="text/javascript" th:src="@{/resources/js/index.js}" charset="UTF-8"></script>
+    <script type="text/javascript" th:src="@{/resources/js/jquery-3.5.0.js}" charset="UTF-8"></script>
+</head>
+<body id="myBlog">
+<div th:each="image, index: ${images}" style="display: inline-block;">
+    <label th:text="${index.count}" onclick="getImageSrc(this.innerText)"></label> <br>
+    <img th:id="${index.index}" th:src="*{'data:image/jpg;base64,'+ image}" alt="#" style="max-width: 200px;"/>
+</div>
+<br>
+<form th:action="@{/blog/getSelectedImageSrc}" method="post">
+    <label for="inputImageSrc">이미지 경로</label>
+    <input id="inputImageSrc" name="inputImageSrc" type="text"/>
+    <input type="submit" value="이미지 선택"/>
+</form>
+<script type="text/javascript" th:inline="javascript">
+    function getImageSrc(imageIndex) {
+        document.getElementById("inputImageSrc").value = imageIndex;
+    }
+</script>
+<!--Thymeleaf 링크 > th:href="@{/url}"-->
+<a th:href="@{/index}">메인 페이지</a> &nbsp;&nbsp;
+<a href="#" id="newBackgroundUpload">새 배경 업로드</a>
+<script type="text/javascript" th:inline="javascript">
+    /*<![CDATA[*/
+    var uploadBackgroundPageUrl = /*[[@{/blog/blogBackgroundUploadPage}]]*/'';
+
+    var uploadBackgroundWindow = document.getElementById('newBackgroundUpload');
+
+    uploadBackgroundWindow.onclick = function () {
+        window.open(uploadBackgroundPageUrl, '_blank',
+            "toolbar=yes,scrollbars=yes,resizable=yes,width=400,height=400");
+    }
+    /*]]>*/
+</script>
+</body>
+</html>

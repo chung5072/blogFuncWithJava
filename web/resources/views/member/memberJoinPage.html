@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org"
+      xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+    <title>Member Join Page</title>
+</head>
+<body>
+회원가입 페이지 <br>
+<!--블로그 만들기 프로젝트
+기반 > Spring MVC + Thymeleaf + Oracle Database-->
+<!--form 태그를 활용하여 값을 전달
+th:action="@{컨트롤러에 있는 링크}"
+th:object="${커맨드객체 같이 값을 넣을 객체}" > thymesVar를 설정해야 함
+method="get / post" > 값 전달 방식-->
+<!--/*@thymesVar id="member" type="com.myBlogProj.blogProj_thymeleaf.member.Member"*/-->
+<form th:action="@{/member/memberJoin}" th:object="${member}" th:method="post">
+    <table border="1">
+        <tr>
+            <th>이름</th>
+            <th colspan="2">값</th>
+        </tr>
+        <tr>
+            <td>
+                아이디 :
+            </td>
+            <td colspan="2">
+                <!--값을 넣는 것을 일반 html 형식을 활용-->
+                <input type="text" name="memberID" id="memberID" >
+            </td>
+        </tr>
+        <tr>
+            <td>
+                비밀번호 :
+            </td>
+            <td colspan="2">
+                <input type="text" name="memberPW" id="memberPW" >
+            </td>
+        </tr>
+        <tr>
+            <td>
+                비밀번호 재확인 :
+            </td>
+            <td colspan="2">
+                <input type="text" name="memberPWCheck" id="memberPWCheck" >
+                <button type="button" onclick="checkPW()">비밀번호 확인</button>
+            </td>
+        </tr>
+        <tr>
+            <td>사용할 별명 : </td>
+            <td colspan="2">
+                <input type="text" id="memberNickname" name="memberNickname"/>
+            </td>
+        </tr>
+        <tr>
+            <td>생년월일(주민번호 앞 6자리) : </td>
+            <td colspan="2">
+                <input type="text" id="memberBirth" name="memberBirth"/>
+            </td>
+        </tr>
+        <tr>
+            <td>소개 글 : </td>
+            <td colspan="2">
+                <textarea name="memberIntroWord" id="memberIntroWord" cols="40" rows="5"></textarea>
+            </td>
+        </tr>
+        <tr>
+            <td colspan="3">
+                <div id="memberJoinAvailable">
+                    <button type="submit">
+                        회원가입 완료 버튼
+                    </button>
+                </div>
+                <div id="memberJoinDisAvailable">
+                    비밀번호를 다시 확인해주세요
+                </div>
+            </td>
+        </tr>
+    </table>
+</form>
+<script type="text/javascript">
+    var pw = document.getElementById("memberPW");
+    var pwCheck = document.getElementById("memberPWCheck");
+    var joinButton = document.getElementById("memberJoinAvailable");
+    var checkPlease = document.getElementById("memberJoinDisAvailable");
+
+    joinButton.style.display = "none";
+    checkPlease.style.display = "block";
+
+    function checkPW() {
+        if (pw.value !== '') {
+            if (pw.value === pwCheck.value) {
+                joinButton.style.display = "block";
+                checkPlease.style.display = "none";
+            } else {
+                joinButton.style.display = "none";
+                checkPlease.style.display = "block";
+            }
+        } else {
+            joinButton.style.display = "none";
+            checkPlease.style.display = "block";
+        }
+    }
+</script>
+<!--th:href="@{링크}" > url 링크 > 해당 페이지로 이동-->
+<a th:href="@{/index}">메인 페이지</a>
+</body>
+</html>

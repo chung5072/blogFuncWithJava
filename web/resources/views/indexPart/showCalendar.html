@@ -1,0 +1,36 @@
+<html lang="ko" xmlns:th="http://www.thymeleaf.org"
+      xmlns="http://www.w3.org/1999/xhtml">
+<td rowspan="2">
+    <table id="calendar" border="3" align="center">
+        <tr><!-- label은 마우스로 클릭을 편하게 해줌 -->
+            <td>
+                <label onclick="prevCalendar()">
+                    ◀
+                </label>
+            </td>
+            <td align="center" id="tbCalendarYM" colspan="5">
+                <label onclick="showArticleDateFromCalendar(articleMonth)">
+                    yyyy년 m월
+                </label>
+            </td>
+            <td>
+                <label onclick="nextCalendar()">
+                    ▶
+                </label>
+            </td>
+        </tr>
+        <tr>
+            <td align="center">일</td>
+            <td align="center">월</td>
+            <td align="center">화</td>
+            <td align="center">수</td>
+            <td align="center">목</td>
+            <td align="center">금</td>
+            <td align="center">토</td>
+        </tr>
+    </table>
+    <script language="javascript" type="text/javascript">
+        buildCalendar();//
+    </script>
+</td>
+</html>

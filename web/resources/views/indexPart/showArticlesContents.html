@@ -1,0 +1,133 @@
+<html lang="ko" xmlns:th="http://www.thymeleaf.org"
+      xmlns="http://www.w3.org/1999/xhtml">
+<td>
+    <p>글 내용</p>
+    <div th:each="article: ${articles_contents}">
+        <p th:text="${article.getArticleTitle()}">category title</p>
+        <p th:text="${article.getArticleAuthor()}">category author</p>
+        <p th:text="${article.getArticleDate()}">category date</p>
+        <p th:text="${article.getArticleCategory()}">category category</p>
+        <p th:text="${article.getArticleContents()}">category contents</p>
+        <div th:if="${article_fileName == null}">
+        </div>
+        <div th:unless="${article_fileName == null}">
+            <hr style="color: black">
+            <p>첨부파일</p>
+            <button type="button" id="getFileButton" onclick="getFile()">파일 다운로드</button>
+            <div th:if="${session.isEmpty()}">
+            </div>
+            <div th:unless="${session.isEmpty()}">
+                <div th:if="${#strings.equals(session.member.memberID, adminID)}">
+                    <!--th:replace="링크" > 다른 html에 작성된 view 내용을 가져옴-->
+                    <a th:href="@{/article/deleteArticleFile(articleTitle=${article.getArticleTitle()})}">
+                        첨부파일 삭제
+                    </a>
+                </div>
+                <div th:unless="${#strings.equals(session.member.memberID, adminID)}">
+                    <!--th:replace="링크" > 다른 html에 작성된 view 내용을 가져옴-->
+                </div>
+            </div>
+            <iframe id="getFilePage" frameborder="0"
+                        th:src="@{/article/goToGetFilePage(articleTitle=${article.getArticleTitle()}, fileName=${article_fileName})}"
+                    style="width:fit-content; height:fit-content; border:0px; top:0px; left:0px; position: relative; z-index: 1;">
+            </iframe>
+            <script type="text/javascript">
+                var getFilePageStatus = document.getElementById("getFilePage");
+                var getFileButtonStatus = document.getElementById("getFileButton");
+
+                getFilePageStatus.style.display = "none";
+            </script>
+            <hr style="color: black">
+        </div>
+        <div id="unknown_comments" th:if="${session.isEmpty()}">
+            <button type="button" onclick="cantComment()">댓글 작성</button>
+        </div>
+        <div id="member_comments" th:unless="${session.isEmpty()}">
+            <button type="button" onclick="writeComment()" id="writeComment">댓글 작성</button>
+            <div id="writeCommentPage">
+                <!--/*@thymesVar id="comment" type="com.myBlogProj.blogProj_thymeleaf.article.Comment"*/-->
+                <form th:action="@{/article/writeComments(commentTitle=${article.getArticleTitle()})}" th:object="${comment}" th:method="post">
+                    <table border="1">
+                        <tr>
+                            <th colspan="4">댓글</th>
+                        </tr>
+                        <tr>
+                            <td colspan="2">글 제목: </td>
+                            <td colspan="2">
+                                <p><span th:text="${article.getArticleTitle()}" id="commentTitle" name="commentTitle"></span></p>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>작성자:</td>
+                            <td>
+                                <p><span th:text="${session.member.getMemberNickname()}" id="commentAuthor" name="commentAuthor"></span></p>
+                            </td>
+                            <td>날짜:</td>
+                            <td>
+                                <!--현재 작성 날짜-->
+                                <p th:text="${#dates.format(#dates.createNow(), 'yyyy년 MMM dd일 HH시 mm분')}" id="commentDate" name="commentDate"></p>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td colspan="4">댓글 내용</td>
+                        </tr>
+                        <tr>
+                            <td colspan="4">
+                                <textarea name="commentContents" id="commentContents" cols="40" rows="5"></textarea>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td colspan="2">
+                                첨부파일
+                            </td>
+                            <td colspan="2">
+                                <input type="submit" value="댓글 작성"/>
+                            </td>
+                        </tr>
+                    </table>
+                </form>
+            </div>
+            <script type="text/javascript">
+                var writeCommentPageStatus = document.getElementById("writeCommentPage");
+                var writeCommentButtonStatus = document.getElementById("writeComment");
+
+                writeCommentPageStatus.style.display = "none";
+            </script>
+        </div>
+    </div>
+    <button type="button" onclick="showComments()" id="showCommentButton">댓글 보기</button>
+    <div id="commentList">
+        댓글 테스트
+        <ul th:each="comment: ${articleComments}">
+            <li th:text="${comment.getCommentAuthor()}"></li>
+            <li th:text="${comment.getCommentDate()}"></li>
+            <li th:text="${comment.getCommentTitle()}"></li>
+            <li th:text="${comment.getCommentContents()}"></li>
+            <div th:if="${session.isEmpty()}">
+                <!--                댓글 수정은 로그인 후 가능합니다-->
+            </div>
+            <div th:unless="${session.isEmpty()}">
+                <div th:if="${session.member.getMemberNickname().equals(comment.getCommentAuthor())}">
+                    <button
+                            th:data-url="@{/article/goToModifyCommentPage(
+                currentComment=${comment.getCommentContents()})}"
+                            onclick="openWin(this.getAttribute('data-url'))">댓글 수정</button>
+                    <a th:href="@{/article/deleteComment(
+                currentComment=${comment.getCommentContents()})}" id="modifyCurrent">
+                        댓글 삭제
+                    </a>
+                </div>
+                <div th:unless="${session.member.getMemberNickname().equals(comment.getCommentAuthor())}">
+                    <p>댓글 수정은 댓글의 작성자만 가능합니다</p>
+                </div>
+            </div>
+        </ul>
+    </div>
+    <script type="text/javascript">
+        var commentListStatus = document.getElementById("commentList");
+        var commentButtonStatus = document.getElementById("showCommentButton");
+
+        commentListStatus.style.display = "none";
+    </script>
+</td>
+</html>

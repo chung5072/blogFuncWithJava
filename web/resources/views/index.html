@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org"
+      xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+    <title>Main Page</title>
+    <script type="text/javascript" th:src="@{/resources/js/jquery-3.5.0.js}" charset="UTF-8"></script>
+    <script type="text/javascript" th:src="@{/resources/js/article/articleFile.js}" charset="UTF-8"></script>
+    <script type="text/javascript" th:src="@{/resources/js/article/showComment.js}" charset="UTF-8"></script>
+    <script type="text/javascript" th:src="@{/resources/js/article/writeComment.js}" charset="UTF-8"></script>
+    <script type="text/javascript" th:src="@{/resources/js/article/modifyComment.js}" charset="UTF-8"></script>
+    <script type="text/javascript" th:src="@{/resources/js/article/cantComment.js}" charset="UTF-8"></script>
+    <script type="text/javascript" th:src="@{/resources/js/index/clock.js}" charset="UTF-8"></script>
+    <script type="text/javascript" th:src="@{/resources/js/index/calendar.js}" charset="UTF-8"></script>
+</head>
+<body onload="printClock()">
+<iframe frameborder="0" th:src="@{/backgroundImage}"
+        style="width:100%; height:100%; border:0; top:0; left:0; position: absolute; z-index: 1;">
+</iframe>
+<!--블로그 만들기 프로젝트
+기반 > Spring MVC + Thymeleaf + Oracle Database-->
+<table border="1" style="position: absolute; z-index: 2; top: 0;">
+    <tr>
+        <th colspan="3" th:text="${blogTitle}"></th>
+    </tr>
+    <tr>
+        <div th:replace="indexPart/showLoginAProfile"></div>
+        <div th:replace="indexPart/showArticleSearch"></div>
+        <div th:replace="indexPart/showServerTime"></div>
+    </tr>
+    <tr>
+        <div th:replace="indexPart/showCategoriesTitle"></div>
+        <div th:replace="indexPart/showArticlesTitle"></div>
+        <div th:replace="indexPart/showCalendar"></div>
+    </tr>
+    <tr>
+        <div th:replace="indexPart/showArticlesContents"></div>
+    </tr>
+    <!--관리자 계정으로 로그인을 하면 블로그 설정 창이 나옴-->
+    <!--#strings.equal(비교1,비교2)를 통해 문자열 비교가 가능-->
+    <div th:if="${#strings.equals(session.member.memberID, adminID)}">
+        <!--th:replace="링크" > 다른 html에 작성된 view 내용을 가져옴-->
+        <div th:replace="adminPrivate/blogConfig"></div>
+    </div>
+</table>
+</body>
+</html>

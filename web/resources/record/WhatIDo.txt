@@ -1,0 +1,26 @@
+블로그 만들기 프로젝트
+기반 > Spring MVC + Thymeleaf + Oracle Database
+
+200414, 화요일, 한 일:
+> 환경 구성 정리
+> 페이지 링크
+> 뷰 페이지 값 받기
+> CSS, JS 적용
+
+200415, 수요일, 한 일:
+> JS 적용
+> POPUP 창 <-> 메인 창
+> 날짜 작성
+
+200420, 월요일, 한 일:
+> DB에 있는 데이터 화면에 출력
+> "redirect:/url"을 사용하여 화면 링크 활용 > "/member/memberLogout" > "redirect:/index"
+> thymeleaf의 리스트 활용
+
+200422, 수요일, 한 일:
+> javascript <-> java > ajax 통신
+
+200424~200429, 목요일~수요일, 한 일:
+> ajax 포기
+> thymeleaf의 href <-> java의 controller
+> 참고 사이트: https://nahosung.tistory.com/80

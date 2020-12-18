@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org"
+      xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+    <title>Write New Article Page</title>
+    <script type="text/javascript" th:src="@{/resources/js/jquery-3.5.0.js}" charset="UTF-8"></script>
+    <script type="text/javascript" th:src="@{/resources/js/index/clock.js}" charset="UTF-8"></script>
+</head>
+<body onload="printClock()">
+<!--블로그 만들기 프로젝트
+기반 > Spring MVC + Thymeleaf + Oracle Database-->
+<!--관리자(admin 계정)만 입장 가능-->
+<form th:action="@{/article/writeArticle}" th:method="post" enctype="multipart/form-data">
+    <table border="1">
+        <tr>
+            <td colspan="5" style="text-align: center">
+                <label for="articleTitle">제목:</label>
+                <input type="text" name="articleTitle" id="articleTitle" >
+            </td>
+        </tr>
+        <tr>
+            <td>작성자:</td>
+            <td>
+                <!--th:text="${변수}" > 변수에 보여주고 싶은 값을 넣음
+                세션에 있는 값을 넣음-->
+<!--                <input type="text" th:text="${session.member.memberID}" id="articleAuthor">-->
+                <input type="text" name="articleAuthor" id="articleAuthor">
+            </td>
+            <td>날짜:</td>
+            <td>
+                <input type="text" name="articleDate" id="articleDate">
+            </td>
+            <td rowspan="3">
+                <p>카테고리</p>
+                <input list="articleCategory" name="articleCategory">
+                <datalist id="articleCategory">
+                    <option th:each="category : ${categoryList}" th:value="${category.getCategoryTitle()}"></option>
+                </datalist>
+            </td>
+        </tr>
+        <tr>
+            <td colspan="4">글</td>
+            <!--카테고리-->
+        </tr>
+        <tr>
+            <td colspan="4">
+                <textarea name="articleContents" id="articleContents" cols="40" rows="5"></textarea>
+            </td>
+            <!--카테고리-->
+        </tr>
+        <tr>
+            <td colspan="1">
+                첨부파일
+            </td>
+            <td colspan="1">
+                <input type="text" name="articleFileName" id="articleFileName" />
+            </td>
+            <td colspan="2">
+                <input type="file" name="articleFileContents" id="articleFileContents"/>
+            </td>
+            <td>
+                <input type="submit" value="글 발행">
+            </td>
+        </tr>
+    </table>
+</form>
+<script type="text/javascript" th:inline="javascript" charset="UTF-8">
+    /*<![CDATA[*/
+    var loginInfo = /*[[ ${session.member.getMemberNickname()} ]]*/'';
+    /*]]*/
+    //1. 작성자
+    document.getElementById('articleAuthor').value = loginInfo;
+
+    //2. 날짜
+    var today = new Date();
+    var dd = today.getDate();
+    var mm = today.getMonth() + 1; //January is 0!
+
+    var yyyy = today.getFullYear();
+    if (dd < 10) {
+        dd = '0' + dd;
+    }
+    if (mm < 10) {
+        mm = '0' + mm;
+    }
+    var today = mm + '/' + dd + '/' + yyyy;
+    document.getElementById('articleDate').value = today;
+
+    //3. 파일 이름
+    var input = document.getElementById('articleFileContents');
+    var infoArea = document.getElementById('articleFileName');
+
+    input.addEventListener('change', showFileName);
+
+    function showFileName() {
+        var filename = input.value;
+        var regexPattern = /h\\(.*?)$/;
+        var test = regexPattern.exec(filename)[1];
+        infoArea.value = test.toString();
+    }
+</script>
+<!--th:href="@{링크}" > url 링크 > 해당 페이지로 이동-->
+<a th:href="@{/index}">메인 페이지</a>
+</body>
+</html>

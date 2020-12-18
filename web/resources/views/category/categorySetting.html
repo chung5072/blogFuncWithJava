@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org"
+      xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+    <title>Category Setting Page</title>
+    <link rel="stylesheet" type="text/css" th:href="@{/resources/css/category/categorySetting.css}" />
+</head>
+<body>
+<!--블로그 만들기 프로젝트
+기반 > Spring MVC + Thymeleaf + Oracle Database-->
+<!--관리자(admin 계정)만 입장 가능
+css를 적용시킬 때 /resources 부터 적용을 시켜야 CSS가 잘 먹힌다.-->
+<form th:action="@{/category/categoryAdd}" th:object="${category}" th:method="get" style="display: inline-block">
+    <table border="1">
+        <tr>
+            <th colspan="2">카테고리 추가</th>
+        </tr>
+        <tr>
+            <td>카테고리 제목</td>
+            <td>
+                <input type="text" name="categoryTitle" id="categoryTitle">
+            </td>
+        </tr>
+        <tr>
+            <td>카테고리 공개 여부</td>
+            <td>
+                <input type="text" name="categoryClosed" id="categoryClosed">
+            </td>
+        </tr>
+        <tr>
+            <td colspan="2">
+                <button type="submit">추가</button>
+            </td>
+        </tr>
+    </table>
+</form>
+<form th:action="@{/category/categoryChange}" th:object="${category}" th:method="get" style="display: inline-block">
+    <table border="1">
+        <tr>
+            <th colspan="2">카테고리 변경</th>
+        </tr>
+        <tr>
+            <td>변경할 카테고리 명</td>
+            <td>
+                <input type="text" name="categoryChangeBefore" id="categoryChangeBefore">
+            </td>
+        </tr>
+        <tr>
+            <td>변경 후 카테고리 명</td>
+            <td>
+                <input type="text" name="categoryChangeAfter" id="categoryChangeAfter">
+            </td>
+        </tr>
+        <tr>
+            <td>카테고리 공개/비공개 설정</td>
+            <td>
+                <input type="text" name="categoryClosedChange" id="categoryClosedChange"/>
+            </td>
+        </tr>
+        <tr>
+            <td colspan="2">
+                <button type="submit">변경</button>
+            </td>
+        </tr>
+    </table>
+</form>
+<form th:action="@{/category/categoryDelete}" th:object="${category}" th:method="get" style="display: inline-block">
+    <table border="1">
+        <tr>
+            <th colspan="2">카테고리 삭제</th>
+        </tr>
+        <tr>
+            <td>삭제할 카테고리 명</td>
+            <td>
+                <input type="text" name="categoryDelete" id="categoryDelete">
+            </td>
+        </tr>
+        <tr>
+            <td colspan="2">
+                <button type="submit">삭제</button>
+            </td>
+        </tr>
+    </table>
+</form>
+<br>
+<a href="#" id="categoryPreview">카테고리 미리보기</a>
+<script type="text/javascript" th:inline="javascript">
+    /*<![CDATA[*/
+    var categoryLink = /*[[@{/category/categoryPreview}]]*/'';
+
+    var categoryWindow = document.getElementById('categoryPreview');
+
+    categoryWindow.onclick = function () {
+        window.open(categoryLink, '_blank',
+            "toolbar=yes,scrollbars=yes,resizable=yes,width=400,height=400");
+    }
+    /*]]>*/
+</script>
+<!--th:href="@{링크}" > url 링크 > 해당 페이지로 이동-->
+<a th:href="@{/index}">
+    설정 완료 버튼
+</a>
+</body>
+</html>

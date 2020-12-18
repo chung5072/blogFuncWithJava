@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org"
+      xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+    <title>Category Preview Page</title>
+</head>
+<body>
+<table border="1">
+    <tr>
+        <th>카테고리 제목</th>
+        <th>카테고리 공개/비공개</th>
+    </tr>
+    <tr th:each="category : ${categories}">
+        <td th:text="${category.categoryTitle}">category title</td>
+        <td th:text="${category.categoryClosed}">category closed</td>
+    </tr>
+</table>
+<a href="#" id="categorySetting">카테고리 설정 페이지</a>
+<script type="text/javascript" th:inline="javascript">
+    /*<![CDATA[*/
+    var categorySettingPageUrl = /*[[@{/category/categorySetting}]]*/'';
+
+    var goToCategorySettingWindow = document.getElementById('categorySetting');
+
+    goToCategorySettingWindow.onclick = function () {
+        opener.window.location = categorySettingPageUrl;
+
+        close();
+    }
+    /*]]>*/
+</script>
+</body>
+</html>

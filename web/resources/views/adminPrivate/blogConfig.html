@@ -1,0 +1,27 @@
+<html lang="ko" xmlns:th="http://www.thymeleaf.org"
+      xmlns="http://www.w3.org/1999/xhtml">
+<!--블로그 만들기 프로젝트
+기반 > Spring MVC + Thymeleaf + Oracle Database-->
+<!-- 해당 링크를 통해서 분리된 내용을 넣음
+<div th:replace="adminPrivate/blogConfig"></div>-->
+    <tr>
+        <td colspan="3">
+            관리자 설정
+        </td>
+    </tr>
+    <tr>
+        <td>
+            카테고리 설정
+            <!--th:href="@{링크}" > url 링크 > 해당 페이지로 이동-->
+            <a th:href="@{/category/categorySetting}">카테고리 설정 페이지</a>
+        </td>
+        <td>
+            새 글 작성
+            <a th:href="@{/article/newArticle}">글 작성</a>
+        </td>
+        <td>
+            블로그 설정
+            <a th:href="@{/blog/blogSetting}">블로그 설정</a>
+        </td>
+    </tr>
+</html>

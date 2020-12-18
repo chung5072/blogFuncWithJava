@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org"
+      xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+    <title>Search Error</title>
+</head>
+<body>
+에러 페이지
+<a href="#" id="mainPage">돌아가기</a>
+<script type="text/javascript" th:inline="javascript">
+    /*<![CDATA[*/
+    var mainPageUrl = /*[[@{/member/memberSearchPage}]]*/'';
+    /*]]>*/
+
+    var goToMainWindow = document.getElementById('mainPage');
+
+    goToMainWindow.onclick = function () {
+        opener.window.location = mainPageUrl;
+
+        close();
+    }
+
+</script>
+</body>
+</html>

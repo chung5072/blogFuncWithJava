@@ -1,0 +1,6 @@
+.idea
+out
+target
+WEB-INF
+blogProj_thymeleaf.iml
+src/main/java/com/myBlogProj/blogProj_thymeleaf/test

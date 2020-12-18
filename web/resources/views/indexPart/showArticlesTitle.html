@@ -1,0 +1,39 @@
+<html lang="ko" xmlns:th="http://www.thymeleaf.org"
+      xmlns="http://www.w3.org/1999/xhtml">
+<td>
+    <p>글 목록</p>
+    <div th:each="article: ${articles_category}" >
+        <a th:text="${article.getArticleTitle()}"
+           th:href="@{/article/showArticleCategory(
+           articleCategory_json=${article.getArticleCategory()},
+           articleTitle_json=${article.getArticleTitle()}
+           )}"></a>
+        <div th:if="${session.isEmpty()}">
+            session is empty
+        </div>
+        <div th:unless="${session.isEmpty()}">
+            <div th:if="${#strings.equals(session.member.memberID, adminID)}">
+                <button th:data-url=
+                                "@{/article/goToModifyArticlePage(
+                                articleTitle=${article.getArticleTitle()})}"
+                        onclick="openWin(this.getAttribute('data-url'))">글 수정</button>
+                <script type="text/javascript">
+                    function openWin(url) {
+                        ReportPrintPreview = window.open("about:blank", "ReportPrintPreview", "width=666,height=700left=250,top=50,dependent=yes,menubar=no,status=no,resizable=yes,toolbar=no,scrollbars=yes");
+                        ReportPrintPreview.location.href = url;
+                        ReportPrintPreview.focus();
+                        return false;
+                    }
+                </script>
+                <a th:href="@{/article/deleteArticle(
+                currentTitle=${article.getArticleTitle()})}" id="deleteArticle">
+                    글 삭제
+                </a>
+            </div>
+            <div th:unless="${#strings.equals(session.member.memberID, adminID)}">
+                id is not admin
+            </div>
+        </div>
+    </div>
+</td>
+</html>

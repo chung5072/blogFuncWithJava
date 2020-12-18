@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org"
+      xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+    <title>Reset Member PW</title>
+</head>
+<body>
+<form th:action="@{/member/resetMemberPW(memberID=${memberID})}" th:method="post">
+    <table border="1">
+        <tr>
+            <th colspan="2">비밀번호 재설정</th>
+        </tr>
+        <tr>
+            <td>재설정할 비밀번호</td>
+            <td>
+                <input type="text" name="memberPW" id="memberPW"/>
+            </td>
+        </tr>
+        <tr>
+            <td colspan="2">
+                <input type="submit" value="재설정">
+            </td>
+        </tr>
+    </table>
+</form>
+<a href="#" id="memberSearch">계정 검색</a>
+<script type="text/javascript" th:inline="javascript">
+    /*<![CDATA[*/
+    var memberSearchPageUrl = /*[[@{/member/memberSearchPage}]]*/'';
+    /*]]>*/
+    var goToMemberSearchWindow = document.getElementById('memberSearch');
+
+    goToMemberSearchWindow.onclick = function () {
+        opener.window.location = memberSearchPageUrl;
+
+        close();
+    }
+</script>
+</body>
+</html>

@@ -1,0 +1,36 @@
+출처: https://nahosung.tistory.com/80 [nahos]
+
+$.ajax({
+    url :"/보내기 원하는 url",
+    type :"POST",
+    cache : false,
+    data :"받길 원하는 값=" + 값,
+    success :function(response){
+        ajax를 통해 값이 넘어가고 나서 해당 함수가 실행됨
+        > 만약 여기에 href를 추가하는 코드를 넣으면 값이 보내기고 페이지가 한번 새로고침?되고 나서 생김
+        }
+    });
+
+~ = http://localhost:8081/article/showArticleCategories?articleCategory=
+> ~ + testTitle2&articleCategory=testTitle2
+
+~ = http://localhost:8081/article/showArticleCategories
+> ~ + ?articleCategory=testTitle2
+
+@Controller
+public class PushController {
+    @RequestMapping(value ="/보내기 원하는 url")
+    public @ResponseBody 데이터 타입 version(@RequestParam(value = "받길 원하는 값", required=true) String 데이터 타입에 해당하는 값
+        ,HttpServletResponse response) throws Exception {
+
+        데이터 타입에 해당하는 값;
+
+        return 데이터 타입에 해당하는 값;
+    }
+}
+
+추가할 사항
+- ajax로 받는 값의 데이터 타입과 java에서 데이터 타입이 일치해야 error가 안나는 듯?
+- 그리고 @ResponseBody의 return에 "/url"을 넣더라도 url.html처럼 나오는 것이 아니라
+새 창이 나오는 코드를 넣었을 때 빈 페이지에 /url값만 나온다.
+> 암튼 spring mvc의 원하는 view 화면이 나오질 않음

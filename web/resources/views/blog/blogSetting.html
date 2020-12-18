@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org"
+      xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+    <title>Blog Setting Page</title>
+</head>
+<body>
+<!--블로그 만들기 프로젝트
+기반 > Spring MVC + Thymeleaf + Oracle Database-->
+<!--관리자(admin 계정)만 입장 가능-->
+<table border="1">
+    <tr>
+        <th colspan="2">설정</th>
+    </tr>
+    <tr>
+        <td>블로그 제목: <p th:text="${blogTitle}"></p></td>
+        <td>
+            <form th:action="@{/blog/blogTitleSetting}" th:method="post">
+                <label for="newBlogTitle">새 블로그 이름</label>
+                <input type="text" name="newBlogTitle" id="newBlogTitle" >
+                <input type="submit" value="변경">
+            </form>
+        </td>
+    </tr>
+    <tr>
+        <td>관리자 별명: <p th:text="${adminNickname}"></p></td>
+        <td>
+            관리자 별명 변경
+            <!--/*@thymesVar id="member" type="com.myBlogProj.blogProj_thymeleaf.member.Member"*/-->
+            <form th:action="@{/blog/adminNicknameSetting}" th:object="${member}" th:method="post">
+                <label for="memberNickname">새 관리자 별명</label>
+                <input type="text" name="memberNickname" id="memberNickname" >
+                <input type="submit" value="변경">
+            </form>
+        </td>
+    </tr>
+    <tr>
+        <td>관리자 소개 글: <p th:text="${adminIntroWord}"></p></td>
+        <td>
+            관리자 소개 글 변경
+            <!--/*@thymesVar id="member" type="com.myBlogProj.blogProj_thymeleaf.member.Member"*/-->
+            <form th:action="@{/blog/adminIntroWordSetting}" th:object="${member}" th:method="post">
+                <label for="memberIntroWord">새 관리자 소개 글</label>
+                <input type="text" name="memberIntroWord" id="memberIntroWord" >
+                <input type="submit" value="변경">
+            </form>
+        </td>
+    </tr>
+    <tr>
+        <td>커버 이미지</td>
+        <td>
+            커버 이미지를 선택해주세요 &nbsp;&nbsp;
+            <a th:href="@{/blog/blogBackgroundSetting}">커버 변경</a>
+            <a th:href="@{/blog/blogBackgroundReset}">커버 초기화</a>
+        </td>
+    </tr>
+    <tr>
+        <td colspan="2">
+            <!--th:href="@{링크}" > url 링크 > 해당 페이지로 이동-->
+            <a th:href="@{/index}">설정 완료</a>
+        </td>
+    </tr>
+</table>
+</body>
+</html>

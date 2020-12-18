@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org"
+      xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+    <title>Blog Background Upload Page</title>
+    <script type="text/javascript" th:src="@{/resources/js/index.js}" charset="UTF-8"></script>
+    <script type="text/javascript" th:src="@{/resources/js/jquery-3.5.0.js}" charset="UTF-8"></script>
+</head>
+<body>
+<form th:action="@{/blog/blogBackgroundUpload}" method="post" enctype="multipart/form-data">
+    <table>
+        <tr>
+            <td>배경 이미지 번호</td>
+            <td><input type="number" name="backgroundID"/></td>
+        </tr>
+        <tr>
+            <td>배경 이미지 이름</td>
+            <td><input type="text" name="backgroundTitle"/></td>
+        </tr>
+        <tr>
+            <td>배경 이미지</td>
+            <td><input type="file" name="backgroundImage"/></td>
+        </tr>
+        <tr>
+            <td colspan="2">
+                <input type="submit" value="upload">
+            </td>
+        </tr>
+    </table>
+</form>
+<!--Thymeleaf 링크 > th:href="@{/url}"-->
+<a href="#" id="backgroundSetting">설정 화면으로 되돌아가기</a>
+<script type="text/javascript" th:inline="javascript">
+    /*<![CDATA[*/
+    var backgroundSettingPage = /*[[@{/blog/blogBackgroundSetting}]]*/'';
+
+    var goToBackgroundSettingWindow = document.getElementById('backgroundSetting');
+
+    goToBackgroundSettingWindow.onclick = function () {
+        opener.window.location = backgroundSettingPage;
+
+        close();
+    }
+    /*]]>*/
+</script>
+</body>
+</html>

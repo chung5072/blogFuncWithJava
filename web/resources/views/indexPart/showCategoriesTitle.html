@@ -1,0 +1,13 @@
+<html lang="ko" xmlns:th="http://www.thymeleaf.org"
+      xmlns="http://www.w3.org/1999/xhtml">
+<td rowspan="2">
+    카테고리
+    <div th:each="category : ${categories}" >
+        <a th:text="${category.getCategoryTitle()}"
+           th:href="@{/article/showArticleCategory(
+           articleCategory_json=${category.getCategoryTitle()},
+           articleTitle_json='0'
+           )}"></a>
+    </div>
+</td>
+</html>

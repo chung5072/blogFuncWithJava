@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org"
+      xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+    <title>Member Search Page</title>
+</head>
+<body>
+<!--블로그 만들기 프로젝트
+기반 > Spring MVC + Thymeleaf + Oracle Database-->
+아이디 비밀번호 검색 페이지 <br>
+<form th:action="@{/member/findMemberID}" th:method="post" target="newWindowID" onsubmit="searchMemberID()">
+    <table>
+        <tr>
+            <th colspan="2">아이디 찾기</th>
+        </tr>
+        <tr>
+            <td>검색할 계정의 별명</td>
+            <td>
+                <input type="text" name="memberNickname" id="memberNickname"/>
+            </td>
+        </tr>
+        <tr>
+            <td>검색할 계정의 생년월일</td>
+            <td>
+                <input type="text" name="memberBirth" class="memberBirth"/>
+            </td>
+        </tr>
+        <tr>
+            <td colspan="2">
+                <input type="submit" value="아이디 검색"/>
+            </td>
+        </tr>
+    </table>
+</form>
+<script type="text/javascript">
+    var win;
+    function searchMemberID() {
+        win = open('', 'newWindowID', "toolbar=yes,scrollbars=yes,resizable=yes,width=400,height=400");
+    }
+</script>
+<form th:action="@{/member/resetMemberPWPage}" th:method="post" target="newWindowPW" onsubmit="resetMemberPW()">
+    <table>
+        <tr>
+            <th colspan="2">비밀번호 초기화</th>
+        </tr>
+        <tr>
+            <td>초기화할 계정의 아이디</td>
+            <td>
+                <input type="text" name="memberID" id="memberID"/>
+            </td>
+        </tr>
+        <tr>
+            <td>초기화할 계정의 생년월일</td>
+            <td>
+                <input type="text" name="memberBirth" class="memberBirth"/>
+            </td>
+        </tr>
+        <tr>
+            <td colspan="2">
+                <input type="submit" value="비밀번호 초기화"/>
+            </td>
+        </tr>
+    </table>
+</form>
+<script type="text/javascript">
+    var win;
+    function resetMemberPW() {
+        win = open('', 'newWindowPW', "toolbar=yes,scrollbars=yes,resizable=yes,width=400,height=400");
+    }
+</script>
+<!--th:href="@{링크}" > url 링크 > 해당 페이지로 이동-->
+<a th:href="@{/member/memberLoginPage}">검색 완료</a> &nbsp;&nbsp;
+</body>
+</html>
